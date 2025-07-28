@@ -39,13 +39,10 @@ jobs:
           docker build ./app -t ${{ secrets.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}
           docker push ${{ secrets.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
-      # 5. Deploy the image to Azure Web App
-      - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ secrets.WEB_APP_NAME }}
-          resource-group-name: ${{ secrets.RESOURCE_GROUP_NAME }}
-          images: '${{ secrets.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}'
+      # 5. Set Web App image to trigger deployment
+      - name: 'Set Web App image to trigger deployment'
+        run: |
+          az webapp config container set --name ${{ secrets.WEB_APP_NAME }} --resource-group ${{ secrets.RESOURCE_GROUP_NAME }} --docker-custom-image-name ${{ secrets.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ github.sha }} --docker-registry-server-url https://${{ secrets.ACR_NAME }}.azurecr.io
 
       # (Optional) Log out of Azure
       - name: 'Logout of Azure'

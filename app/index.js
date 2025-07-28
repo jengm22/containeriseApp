@@ -2,7 +2,7 @@
 const express = require('express');
 const app = express();
 
-// The port the app will run on. Azure App Service sets the PORT environment variable.
+// The port the application will run on. Azure App Service sets the PORT environment variable.
 // We fall back to 3000 for local development.
 const PORT = process.env.PORT || 3000;
 
