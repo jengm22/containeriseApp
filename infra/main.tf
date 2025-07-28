@@ -66,7 +66,7 @@ resource "azurerm_linux_web_app" "main" {
   # We now define the container image directly in app_settings.
   app_settings = {
     "DOCKER_CUSTOM_IMAGE_NAME" = "mcr.microsoft.com/appsvc/staticsite:latest"
-    "WEBSITES_PORT"            = "3000"
+    # "WEBSITES_PORT"            = "3000"
   }
 
   identity {
