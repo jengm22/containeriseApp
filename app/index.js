@@ -13,7 +13,7 @@ app.get('/health', (req, res) => {
 
 // Root endpoint
 app.get('/', (req, res) => {
-  res.send('Hello, World! Your containerized app is running on Azure.');
+  res.send('Yow Mandemm !!! Your containerized app is running on Azure. Wow this is mad');
 });
 
 app.listen(PORT, () => {
