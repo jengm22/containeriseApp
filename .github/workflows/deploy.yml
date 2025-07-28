@@ -28,8 +28,10 @@ jobs:
       - name: 'Login to ACR'
         uses: azure/docker-login@v1
         with:
-          login-server: ${{ secrets.ACR_NAME }}.azurecr.io
-          # The azure/login action provides credentials for this step
+              login-server: ${{ secrets.ACR_NAME }}.azurecr.io
+              # Explicitly provide the Service Principal credentials from the Azure login step
+              username: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
+              password: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
 
       # 4. Build and push the Docker image
       - name: 'Build and push Docker image'
