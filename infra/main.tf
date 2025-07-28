@@ -32,7 +32,7 @@ resource "azurerm_container_registry" "main" {
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
   sku                 = "Basic"
-  admin_enabled       = true # Required for the Web App to pull images easily
+  admin_enabled       = false # Required for the Web App to pull images easily
 }
 
 # 3. App Service Plan
