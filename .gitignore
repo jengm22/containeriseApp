@@ -1,0 +1,98 @@
+# ===================================================================
+# General / OS
+# ===================================================================
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+
+# ===================================================================
+# Terraform
+#
+# Placed in the /infra/ directory
+# ===================================================================
+# Local Terraform state files. These are highly sensitive and should
+# never be committed. Use remote state (Terraform Cloud, S3, etc.)
+/infra/*.tfstate
+/infra/*.tfstate.*
+
+# Crash log
+/infra/crash.log
+/infra/crash.*.log
+
+# The .terraform directory contains provider plugins and modules,
+# which are downloaded by `terraform init`.
+/infra/.terraform/
+
+# Any .tfvars files are used for secret variables and should not be
+# committed. Use .tfvars.example to provide a template.
+/infra/*.tfvars
+/infra/*.tfvars.json
+
+# Ignore any override files
+/infra/override.tf
+/infra/override.tf.json
+/infra/*_override.tf
+/infra/*_override.tf.json
+
+# Terraform plan files can contain sensitive information
+/infra/*.tfplan
+
+# For Terraform Test framework
+/infra/.test-cache
+
+# ===================================================================
+# Node.js / npm
+#
+# Placed in the /app/ directory
+# ===================================================================
+# Dependency directories. This is the most important rule.
+/app/node_modules/
+
+# Logs
+/app/logs
+/app/npm-debug.log*
+/app/yarn-debug.log*
+/app/yarn-error.log*
+/app/pnpm-debug.log*
+/app/lerna-debug.log*
+
+# Environment files. These contain secrets and keys.
+# A .env.example file should be committed instead.
+/app/.env
+/app/.env.local
+/app/.env.development.local
+/app/.env.test.local
+/app/.env.production.local
+/app/.env.*.local
+
+# Build output
+/app/dist/
+/app/build/
+
+# Coverage directory used by testing frameworks
+/app/coverage/
+
+# ===================================================================
+# Editor / IDE
+# ===================================================================
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains
+.idea/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
