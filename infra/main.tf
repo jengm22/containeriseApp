@@ -50,23 +50,26 @@ resource "azurerm_service_plan" "main" {
 # ... (other resources are still correct) ...
 
 # 4. Web App for Containers (CORRECTED AND MODERNIZED)
+# /infra/main.tf
+
 resource "azurerm_linux_web_app" "main" {
   name                = "${var.app_name_prefix}-wa-${random_string.unique.result}"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_service_plan.main.location
   service_plan_id     = azurerm_service_plan.main.id
 
-  # By providing the DOCKER app settings below, Azure automatically
-  # computes the linux_fx_version. We must NOT set it ourselves.
   site_config {
-    always_on = false # The only setting we need here for this simple app
+    always_on = false
   }
 
-  # THIS IS THE KEY CHANGE
-  # We now define the container image directly in app_settings.
   app_settings = {
-    "DOCKER_CUSTOM_IMAGE_NAME" = "mcr.microsoft.com/appsvc/staticsite:latest"
-    # "WEBSITES_PORT"            = "3000"
+    # This setting tells the Web App WHERE your ACR is.
+    # By not providing a username/password, it forces the Web App
+    # to use its Managed Identity, which has the AcrPull role.
+    "DOCKER_REGISTRY_SERVER_URL" = "https://${azurerm_container_registry.main.login_server}"
+
+    # This is the initial image. The CI/CD pipeline will update this value.
+    "DOCKER_CUSTOM_IMAGE_NAME"   = "mcr.microsoft.com/appsvc/staticsite:latest"
   }
 
   identity {
